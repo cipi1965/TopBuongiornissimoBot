@@ -1,0 +1,97 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "BSON",
+        "repositoryURL": "https://github.com/OpenKitten/BSON.git",
+        "state": {
+          "branch": null,
+          "revision": "3edad325da31095c9d54d04c6125f1fec1f3c5bf",
+          "version": "5.2.3"
+        }
+      },
+      {
+        "package": "CCurl",
+        "repositoryURL": "https://github.com/zmeyc/CCurl.git",
+        "state": {
+          "branch": null,
+          "revision": "7ef27019d4b8b7b198e2b898480216c1e66ac2e6",
+          "version": "0.0.2"
+        }
+      },
+      {
+        "package": "Cheetah",
+        "repositoryURL": "https://github.com/OpenKitten/Cheetah.git",
+        "state": {
+          "branch": null,
+          "revision": "801f4fa278670719bec074b708241878ad5fb25e",
+          "version": "2.0.2"
+        }
+      },
+      {
+        "package": "CryptoKitten",
+        "repositoryURL": "https://github.com/OpenKitten/CryptoKitten.git",
+        "state": {
+          "branch": null,
+          "revision": "bf7a4d6dbd6f4bbd96ae620101239446d2cdd3f9",
+          "version": "0.2.3"
+        }
+      },
+      {
+        "package": "Meow",
+        "repositoryURL": "https://github.com/OpenKitten/Meow.git",
+        "state": {
+          "branch": null,
+          "revision": "e1414b2e8d1e2ad0276849ecee6ea6c339682538",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "MongoKitten",
+        "repositoryURL": "https://github.com/OpenKitten/MongoKitten.git",
+        "state": {
+          "branch": null,
+          "revision": "56a1f14606e9630ba1c6cc0f8905e4a00e07e791",
+          "version": "4.1.1"
+        }
+      },
+      {
+        "package": "ScannerUtils",
+        "repositoryURL": "https://github.com/serhii-londar/ScannerUtils.git",
+        "state": {
+          "branch": null,
+          "revision": "22262813eba0b19b79757b07305ffaeddc2110e5",
+          "version": "1.0.8"
+        }
+      },
+      {
+        "package": "Schrodinger",
+        "repositoryURL": "https://github.com/OpenKitten/Schrodinger.git",
+        "state": {
+          "branch": null,
+          "revision": "d7030fe0a4a6eeddc02044650a8b409a4f57365a",
+          "version": "1.0.1"
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/IBM-Swift/SwiftyJSON.git",
+        "state": {
+          "branch": null,
+          "revision": "7d78e6a9907a5ab23e3f8d4d4ce3e2101abeec9d",
+          "version": "15.0.6"
+        }
+      },
+      {
+        "package": "TelegramBotSDK",
+        "repositoryURL": "https://github.com/cipi1965/telegram-bot-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "fd4aa20c290ef50f76e5bf0c15f1f9afe34193eb",
+          "version": "0.17.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
