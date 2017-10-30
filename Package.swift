@@ -13,7 +13,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/cipi1965/telegram-bot-swift.git", from: "0.17.0"),
-        .package(url: "https://github.com/OpenKitten/Meow.git", from: "1.0.0")
+        .package(url: "https://github.com/OpenKitten/Meow.git", from: "1.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -22,7 +22,7 @@ let package = Package(
             name: "TopBuongiornissimoBot",
             dependencies: [
                 "TelegramBotSDK",
-                "Meow"
+                "Meow",
             ]),
         .testTarget(
             name: "TopBuongiornissimoBotTests",

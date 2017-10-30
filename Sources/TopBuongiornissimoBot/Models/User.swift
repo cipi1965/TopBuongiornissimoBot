@@ -22,4 +22,22 @@ final class User: Model {
         self.surname = surname
         self.username = username
     }
+    
+    class func findOrCreate(telegramId: Int, name: String, surname: String, username: String) throws -> User {
+        
+        let user = try User.findOne("telegramId" == telegramId)
+        
+        if let user = user {
+            user.name = name
+            user.surname = surname
+            user.username = username
+            try user.save()
+            return user
+        } else {
+            let user = User(telegramId: telegramId, name: name, surname: surname, username: username)
+            try user.save()
+            return user
+        }
+        
+    }
 }

@@ -18,4 +18,20 @@ final class Group: Model {
         self.name = name
         self.chatId = chatId
     }
+    
+    class func findOrCreate(name: String, chatId: Int) throws -> Group {
+        
+        let group = try Group.findOne("chatId" == chatId)
+        
+        if let group = group {
+            group.name = name
+            try group.save()
+            return group
+        } else {
+            let group = Group(name: name, chatId: chatId)
+            try group.save()
+            return group
+        }
+        
+    }
 }

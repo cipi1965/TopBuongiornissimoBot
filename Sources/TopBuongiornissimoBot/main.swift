@@ -10,22 +10,109 @@ import TelegramBotSDK
 import Meow
 
 let bot = TelegramBot(token: "341980331:AAGkxNuLxkiF9UGg3J29ILPqBVQHD7yEf_M")
-
 try! Meow.init("mongodb://localhost/topbuongiornissimobot")
 
-let user = User(telegramId: 34223706, name: "Matteo", surname: "Piccina", username: "cipi1965")
-try user.save()
+let router = Router(bot: bot)
 
-let group = Group(name: "Test", chatId: 34223706)
-try group.save()
+router[.text] = { context in
+    
+    guard let message = context.update.message else { return false }
+    
+    switch message.chat.type {
+    case .private_chat:
+        
+        return false 
+        
+    case .group,
+         .supergroup:
+        
+        let groupId = message.chat.id
+        let group = try! Group.findOrCreate(name: message.chat.title!, chatId: Int(groupId))
+        
+        let from = message.from!
+        let user = try! User.findOrCreate(telegramId: Int(from.id), name: from.first_name, surname: from.last_name ?? "", username: from.username ?? "")
+        
+        if message.text!.range(of: "(buongiorno|buondì|olà)", options: [.regularExpression, .caseInsensitive]) != nil {
+            let counter = try! UserCounter.findOrCreate(group: group, user: user)
+            let groupCounter = try! GroupCounter.findOrCreate(group: group)
+            
+            if !Calendar.current.isDate(Date(), inSameDayAs: counter.last) {
+                counter.count += 1
+                counter.last = Date()
+                groupCounter.count += 1
+                try! counter.save()
+                try! groupCounter.save()
+            }
+        }
+        
+        return false
+        
+    default:
+        return false
+    }
+}
 
-let counter = GroupCounter(group: Reference(to: group), user: Reference(to: user), count: 0, last: Date())
-try counter.save()
+router["classifica"] = { context in
+    
+    let message = context.update.message!
+    
+    if message.chat.type == .group || message.chat.type == .supergroup {
+        let groupId = message.chat.id
+        let group = try! Group.findOrCreate(name: message.chat.title!, chatId: Int(groupId))
+        
+        let sort: Sort = [
+            "count": .descending
+        ]
+        
+        let counters = try! UserCounter.find([
+            "group": group._id
+            ] as Query, sortedBy: sort, limitedTo: 25)
+        
+        var message = "Classifica:\n\n"
+        
+        for counter in counters {
+            let user = try! counter.user?.resolve()
+            
+            if let user = user {
+                var link = ""
+                if user.username != "" {
+                    link = "https://t.me/\(user.username)"
+                } else {
+                    link = "tg://user?id=\(user.telegramId)"
+                }
+                
+                message += "[\(user.name) \(user.surname)](\(link)): \(counter.count)\n"
+            }
+        }
+        
+        context.respondAsync(message, parse_mode: "Markdown", disable_web_page_preview: true)
+    }
+    
+    return false
+}
 
-let foundCounter = try GroupCounter.findOne([
-    "group": group._id,
-    "user": user._id
-] as Query)
+router["gruppi"] = { context in
+        
+    let sort: Sort = [
+        "count": .descending
+    ]
+    
+    let counters = try! GroupCounter.find(sortedBy: sort, limitedTo: 25)
+    
+    var message = "Classifica Gruppi:\n\n"
+    
+    for counter in counters {
+        let group = try! counter.group.resolve()
+        message += "\(group.name): \(counter.count)\n"
+    }
+    
+    context.respondAsync(message, parse_mode: "Markdown")
+    
+    return false
+}
 
-let linkedUser = try foundCounter?.user?.resolve()
-print(linkedUser?.name)
+while let update = bot.nextUpdateSync() {
+    try router.process(update: update)
+}
+
+fatalError("Server stopped due to error: \(bot.lastError)")

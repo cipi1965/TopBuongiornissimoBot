@@ -1,8 +1,8 @@
 //
-//  GroupCounter.swift
-//  TopBuongiornissimoBot
+//  File.swift
+//  TopBuongiornissimoBotPackageDescription
 //
-//  Created by Matteo Piccina on 29/10/17.
+//  Created by Matteo Piccina on 30/10/17.
 //
 
 import Foundation
@@ -11,15 +11,25 @@ import Meow
 final class GroupCounter: Model {
     var _id = ObjectId()
     
-    var group: Reference<Group>?
-    var user: Reference<User>?
+    var group: Reference<Group>
     var count: Int
-    var last: Date
     
-    init(group: Reference<Group>, user: Reference<User>, count: Int, last: Date) {
+    init(group: Reference<Group>, count: Int) {
         self.group = group
-        self.user = user
         self.count = count
-        self.last = last
+    }
+    
+    class func findOrCreate(group: Group) throws -> GroupCounter {
+        let counter = try GroupCounter.findOne([
+            "group": group._id
+            ] as Query)
+        
+        if let counter = counter {
+            return counter
+        } else {
+            let counter = GroupCounter(group: Reference(to: group), count: 0)
+            try counter.save()
+            return counter
+        }
     }
 }

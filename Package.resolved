@@ -74,6 +74,15 @@
         }
       },
       {
+        "package": "SwiftDotEnv",
+        "repositoryURL": "https://github.com/SwiftOnTheServer/SwiftDotEnv.git",
+        "state": {
+          "branch": null,
+          "revision": "338c34310d9c9e5ed796757cca4c550b0c3524d2",
+          "version": "1.1.0"
+        }
+      },
+      {
         "package": "SwiftyJSON",
         "repositoryURL": "https://github.com/IBM-Swift/SwiftyJSON.git",
         "state": {
