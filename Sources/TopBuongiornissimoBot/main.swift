@@ -68,7 +68,7 @@ router["classifica"] = { context in
             "group": group._id
             ] as Query, sortedBy: sort, limitedTo: 25)
         
-        var message = "Classifica:\n\n"
+        var message = "<b>Classifica:</b>\n\n"
         
         for counter in counters {
             let user = try! counter.user?.resolve()
@@ -81,11 +81,11 @@ router["classifica"] = { context in
                     link = "tg://user?id=\(user.telegramId)"
                 }
                 
-                message += "[\(user.name) \(user.surname)](\(link)): \(counter.count)\n"
+                message += "<a href=\"\(link)\">\(user.name) \(user.surname)</a>: \(counter.count)\n"
             }
         }
         
-        context.respondAsync(message, parse_mode: "Markdown", disable_web_page_preview: true)
+        context.respondAsync(message, parse_mode: "HTML", disable_web_page_preview: true)
     }
     
     return false
@@ -99,14 +99,14 @@ router["gruppi"] = { context in
     
     let counters = try! GroupCounter.find(sortedBy: sort, limitedTo: 25)
     
-    var message = "Classifica Gruppi:\n\n"
+    var message = "<b>Classifica Gruppi:</b>\n\n"
     
     for counter in counters {
         let group = try! counter.group.resolve()
         message += "\(group.name): \(counter.count)\n"
     }
     
-    context.respondAsync(message, parse_mode: "Markdown")
+    context.respondAsync(message, parse_mode: "HTML")
     
     return false
 }
