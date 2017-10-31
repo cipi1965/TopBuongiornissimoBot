@@ -10,9 +10,22 @@ import TelegramBotSDK
 import Meow
 import Dispatch
 import Commander
+import DotEnv
 
-let bot = TelegramBot(token: "341980331:AAGkxNuLxkiF9UGg3J29ILPqBVQHD7yEf_M")
-try! Meow.init("mongodb://localhost/topbuongiornissimobot")
+let env = DotEnv(withFile: ".env")
+
+print(FileManager.default.currentDirectoryPath)
+
+let token = env.get("BOT_TOKEN")
+let mongoDbString = env.get("MONGODB_CONNECTION")
+
+if token == nil || mongoDbString == nil {
+    print("Please set BOT_TOKEN and MONGODB_CONNECTION in .env file")
+    exit(1)
+}
+
+let bot = TelegramBot(token: token!)
+try! Meow.init(mongoDbString!)
 
 let main = Commander.Group {
     $0.command("serve", {
