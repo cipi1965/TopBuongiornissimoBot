@@ -8,6 +8,7 @@
 import Foundation
 import TelegramBotSDK
 import Meow
+import Dispatch
 
 let bot = TelegramBot(token: "341980331:AAGkxNuLxkiF9UGg3J29ILPqBVQHD7yEf_M")
 try! Meow.init("mongodb://localhost/topbuongiornissimobot")
@@ -112,7 +113,9 @@ router["gruppi"] = { context in
 }
 
 while let update = bot.nextUpdateSync() {
-    try router.process(update: update)
+    DispatchQueue.global().async {
+        try! router.process(update: update)
+    }
 }
 
 fatalError("Server stopped due to error: \(bot.lastError)")
