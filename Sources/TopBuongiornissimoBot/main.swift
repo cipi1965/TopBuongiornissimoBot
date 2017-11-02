@@ -35,9 +35,9 @@ let main = Commander.Group {
         let drop = try Droplet()
         
         let router = Router(bot: bot)
-        router[.text] = TextHandler.run
         router["classifica"] = UsersRankingCommandHandler.run
         router["gruppi"] = GroupsRankingCommandHandler.run
+        router[.text] = TextHandler.run
         router.partialMatch = { context in
             return true
         }
