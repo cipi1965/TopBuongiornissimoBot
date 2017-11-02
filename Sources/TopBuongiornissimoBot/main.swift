@@ -71,6 +71,23 @@ let main = Commander.Group {
             bot.sendMessageSync(Int64(group.chatId), "Buongiorno")
         }
     })
+    
+    $0.command("sendreport", {
+        let groups = try Group.find()
+        
+        for group in groups {
+            let dailyCounter = try DailyGroupCounter.findOrCreate(group: group, day: Date())
+            
+            var translation = ""
+            if dailyCounter.count == 1 {
+                translation = "buongiorno"
+            } else {
+                translation = "buongiorni"
+            }
+            
+            bot.sendMessageSync(Int64(group.chatId), "Oggi la vita di \(group.name) è stata allietata da ben \(dailyCounter.count) \(translation).\nA domani")
+        }
+    })
 }
 
 main.run()
