@@ -30,13 +30,16 @@ class TextHandler: Handler {
             if message.text!.range(of: "(buongiorno|buondì|buongiornissimo)", options: [.regularExpression, .caseInsensitive]) != nil {
                 let counter = try! UserCounter.findOrCreate(group: group, user: user)
                 let groupCounter = try! GroupCounter.findOrCreate(group: group)
+                let dailyCounter = try! DailyGroupCounter.findOrCreate(group: group, day: Date())
                 
                 if !Calendar.current.isDate(Date(), inSameDayAs: counter.last) {
                     counter.count += 1
                     counter.last = Date()
                     groupCounter.count += 1
+                    dailyCounter.count += 1
                     try! counter.save()
                     try! groupCounter.save()
+                    try! dailyCounter.save()
                 }
             }
             
