@@ -11,6 +11,8 @@ import Meow
 import Dispatch
 import Commander
 import DotEnv
+import Vapor
+import SwiftyJSON
 
 let env = DotEnv(withFile: ".env")
 
@@ -29,18 +31,39 @@ try! Meow.init(mongoDbString!)
 
 let main = Commander.Group {
     $0.command("serve", {
+        
+        let drop = try Droplet()
+        
         let router = Router(bot: bot)
         router[.text] = TextHandler.run
         router["classifica"] = UsersRankingCommandHandler.run
         router["gruppi"] = GroupsRankingCommandHandler.run
         
-        while let update = bot.nextUpdateSync() {
+        /*while let update = bot.nextUpdateSync() {
             DispatchQueue.global().async {
                 try! router.process(update: update)
             }
+        }*/
+        
+        drop.post("topbuongiornissimobot", "webhook") { req in
+            
+            if let bytes = req.body.bytes {
+                let jsonString = String(bytes: bytes)
+                let data = jsonString.data(using: String.Encoding.utf8, allowLossyConversion: false)
+                let json = SwiftyJSON.JSON(data: data!)
+                
+                let update = Update(json: json)
+                DispatchQueue.global().async {
+                    try! router.process(update: update)
+                }
+            }
+            
+            return "OK"
         }
         
-        fatalError("Server stopped due to error: \(bot.lastError!)")
+        try drop.run()
+        
+        //fatalError("Server stopped due to error: \(bot.lastError!)")
     })
     
     $0.command("sendbuongiorno", {
