@@ -68,7 +68,7 @@ let main = Commander.Group {
         let groups = try Group.find()
 
         for group in groups {
-            bot.sendMessageAsync(Int64(group.chatId), "Buongiorno ☕️")
+            bot.sendMessageSync(Int64(group.chatId), "Buongiorno ☕️")
         }
     })
     
@@ -85,7 +85,7 @@ let main = Commander.Group {
                 translation = "buongiorni"
             }
             
-            bot.sendMessageAsync(Int64(group.chatId), "Oggi la vita di \(group.name) è stata allietata da ben \(dailyCounter.count) \(translation).\nA domani ☕️")
+            bot.sendMessageSync(Int64(group.chatId), "Oggi la vita di \(group.name) è stata allietata da ben \(dailyCounter.count) \(translation).\nA domani ☕️")
         }
     })
 }
