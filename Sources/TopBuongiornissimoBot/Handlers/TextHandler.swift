@@ -40,10 +40,10 @@ class TextHandler: Handler {
                 }
             }
             
-            return false
+            return true
             
         default:
-            return false
+            return true
         }
     }
 }

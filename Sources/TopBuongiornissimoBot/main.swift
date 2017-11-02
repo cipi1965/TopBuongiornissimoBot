@@ -38,12 +38,12 @@ let main = Commander.Group {
         router[.text] = TextHandler.run
         router["classifica"] = UsersRankingCommandHandler.run
         router["gruppi"] = GroupsRankingCommandHandler.run
-        
-        /*while let update = bot.nextUpdateSync() {
-            DispatchQueue.global().async {
-                try! router.process(update: update)
-            }
-        }*/
+        router.partialMatch = { context in
+            return true
+        }
+        router.unsupportedContentType = { context in
+            return true
+        }
         
         drop.post("topbuongiornissimobot", "webhook") { req in
             
@@ -62,8 +62,6 @@ let main = Commander.Group {
         }
         
         try drop.run()
-        
-        //fatalError("Server stopped due to error: \(bot.lastError!)")
     })
     
     $0.command("sendbuongiorno", {
