@@ -27,7 +27,7 @@ class TextHandler: Handler {
             let from = message.from!
             let user = try! User.findOrCreate(telegramId: Int(from.id), name: from.first_name, surname: from.last_name ?? "", username: from.username ?? "")
             
-            if message.text!.range(of: "(buongiorno|buondì|buongiornissimo)", options: [.regularExpression, .caseInsensitive]) != nil {
+            if message.text!.range(of: "^(.*buondì|.*buongiorno|.*buongiornissimo|giorno)", options: [.regularExpression, .caseInsensitive]) != nil {
                 let counter = try! UserCounter.findOrCreate(group: group, user: user)
                 let groupCounter = try! GroupCounter.findOrCreate(group: group)
                 let dailyCounter = try! DailyGroupCounter.findOrCreate(group: group, day: Date())
