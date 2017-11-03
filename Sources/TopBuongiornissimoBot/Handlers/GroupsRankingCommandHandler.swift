@@ -22,7 +22,7 @@ class GroupsRankingCommandHandler: Handler {
         
         for counter in counters {
             let group = try! counter.group.resolve()
-            message += "\(group.name): \(counter.count)\n"
+            message += "\(group.name.htmlEscape()): \(counter.count)\n"
         }
         
         context.respondAsync(message, parse_mode: "HTML")

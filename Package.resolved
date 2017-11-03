@@ -119,6 +119,15 @@
         }
       },
       {
+        "package": "HTMLEntities",
+        "repositoryURL": "https://github.com/IBM-Swift/swift-html-entities.git",
+        "state": {
+          "branch": null,
+          "revision": "7b6bd41810b97f93effb9312371591c76cd6fb7c",
+          "version": "3.0.9"
+        }
+      },
+      {
         "package": "JSON",
         "repositoryURL": "https://github.com/vapor/json.git",
         "state": {

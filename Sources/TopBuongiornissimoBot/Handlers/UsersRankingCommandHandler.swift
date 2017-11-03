@@ -8,6 +8,7 @@
 import Foundation
 import TelegramBotSDK
 import Meow
+import HTMLEntities
 
 class UsersRankingCommandHandler: Handler {
     static func run(context: Context) -> Bool {
@@ -38,7 +39,7 @@ class UsersRankingCommandHandler: Handler {
                         link = "tg://user?id=\(user.telegramId)"
                     }
                     
-                    message += "<a href=\"\(link)\">\(user.name) \(user.surname)</a>: \(counter.count)\n"
+                    message += "<a href=\"\(link)\">\(user.name.htmlEscape()) \(user.surname.htmlEscape())</a>: \(counter.count)\n"
                 }
             }
             
