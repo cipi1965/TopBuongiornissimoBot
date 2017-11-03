@@ -249,8 +249,8 @@
         "repositoryURL": "https://github.com/cipi1965/telegram-bot-swift.git",
         "state": {
           "branch": null,
-          "revision": "49ce881b154444b2c3d7d38a9d7f38608a070da5",
-          "version": "0.17.2"
+          "revision": "2ff42cd7e467c53392853ee1bc7ccbeedda7b7b7",
+          "version": "0.17.3"
         }
       },
       {
