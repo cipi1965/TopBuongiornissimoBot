@@ -45,6 +45,9 @@ let main = Commander.Group {
         router.unsupportedContentType = { context in
             return true
         }
+        router.unmatched = { context in
+            return true
+        }
         
         drop.post("topbuongiornissimobot", "webhook") { req in
             
