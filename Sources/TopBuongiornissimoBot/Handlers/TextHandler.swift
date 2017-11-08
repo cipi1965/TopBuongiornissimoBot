@@ -34,10 +34,11 @@ class TextHandler: Handler {
                 
                 let startDate = Calendar.current.date(bySettingHour: 4, minute: 0, second: 0, of: Date())
                 let endDate = Calendar.current.date(bySettingHour: 14, minute: 0, second: 0, of: Date())
+                let curDate = Date()
                 
-                guard (startDate!...endDate!).contains(Date()) else { return false }
+                guard startDate?.compare(curDate) == curDate.compare(endDate) else { return false }
                 
-                if !Calendar.current.isDate(Date(), inSameDayAs: counter.last) {
+                if !Calendar.current.isDate(curDate, inSameDayAs: counter.last) {
                     counter.count += 1
                     counter.last = Date()
                     groupCounter.count += 1
