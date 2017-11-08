@@ -27,10 +27,15 @@ class TextHandler: Handler {
             let from = message.from!
             let user = try! User.findOrCreate(telegramId: Int(from.id), name: from.first_name, surname: from.last_name ?? "", username: from.username ?? "")
             
-            if message.text!.range(of: "^(.*buondì|.*buongiorno|.*buon giorno|.*buongiornissimo|giorno)", options: [.regularExpression, .caseInsensitive]) != nil {
+            if message.text!.range(of: "^(.*buondì|.*bgiorno|.*buongiorno|.*buon giorno|.*buongiornissimo|giorno)", options: [.regularExpression, .caseInsensitive]) != nil {
                 let counter = try! UserCounter.findOrCreate(group: group, user: user)
                 let groupCounter = try! GroupCounter.findOrCreate(group: group)
                 let dailyCounter = try! DailyGroupCounter.findOrCreate(group: group, day: Date())
+                
+                let startDate = Calendar.current.date(bySettingHour: 4, minute: 0, second: 0, of: Date())
+                let endDate = Calendar.current.date(bySettingHour: 14, minute: 0, second: 0, of: Date())
+                
+                guard (startDate!...endDate!).contains(Date()) else { return false }
                 
                 if !Calendar.current.isDate(Date(), inSameDayAs: counter.last) {
                     counter.count += 1
