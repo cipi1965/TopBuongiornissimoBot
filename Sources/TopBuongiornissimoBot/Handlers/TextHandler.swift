@@ -32,9 +32,9 @@ class TextHandler: Handler {
                 let groupCounter = try! GroupCounter.findOrCreate(group: group)
                 let dailyCounter = try! DailyGroupCounter.findOrCreate(group: group, day: Date())
                 
-                let startDate = Calendar.current.date(bySettingHour: 4, minute: 0, second: 0, of: Date())
-                let endDate = Calendar.current.date(bySettingHour: 14, minute: 0, second: 0, of: Date())
                 let curDate = Date()
+                let startDate = curDate.setting(hour: 5, minute: 0, second: 0)
+                let endDate = curDate.setting(hour: 14, minute: 0, second: 0)
                 
                 guard startDate!.compare(curDate) == curDate.compare(endDate!) else { return false }
                 
