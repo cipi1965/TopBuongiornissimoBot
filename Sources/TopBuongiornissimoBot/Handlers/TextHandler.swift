@@ -36,7 +36,7 @@ class TextHandler: Handler {
                 let endDate = Calendar.current.date(bySettingHour: 14, minute: 0, second: 0, of: Date())
                 let curDate = Date()
                 
-                guard startDate?.compare(curDate) == curDate.compare(endDate) else { return false }
+                guard startDate!.compare(curDate) == curDate.compare(endDate!) else { return false }
                 
                 if !Calendar.current.isDate(curDate, inSameDayAs: counter.last) {
                     counter.count += 1
