@@ -35,6 +35,7 @@ let main = Commander.Group {
         let drop = try Droplet()
         
         let router = Router(bot: bot)
+        router["start"] = StartCommandHandler.run
         router["classifica"] = UsersRankingCommandHandler.run
         router["gruppi"] = GroupsRankingCommandHandler.run
         router[.text] = TextHandler.run
