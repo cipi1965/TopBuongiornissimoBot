@@ -27,6 +27,6 @@ class GroupsRankingCommandHandler: Handler {
         
         context.respondAsync(message, parse_mode: "HTML")
         
-        return false
+        return true
     }
 }

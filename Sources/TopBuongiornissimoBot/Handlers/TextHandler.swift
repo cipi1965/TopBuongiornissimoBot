@@ -16,7 +16,7 @@ class TextHandler: Handler {
         switch message.chat.type {
         case .private_chat:
             
-            return false
+            return true
             
         case .group,
              .supergroup:

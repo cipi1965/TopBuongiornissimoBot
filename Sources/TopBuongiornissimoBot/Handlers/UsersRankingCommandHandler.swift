@@ -44,6 +44,8 @@ class UsersRankingCommandHandler: Handler {
             }
             
             context.respondAsync(message, parse_mode: "HTML", disable_web_page_preview: true)
+        } else {
+            context.respondAsync("Questo comando è utilizzabile solo nei gruppi")
         }
         
         return true
