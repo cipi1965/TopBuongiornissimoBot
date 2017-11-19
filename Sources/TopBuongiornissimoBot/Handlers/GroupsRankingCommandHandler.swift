@@ -16,7 +16,7 @@ class GroupsRankingCommandHandler: Handler {
             "count": .descending
         ]
         
-        let counters = try! GroupCounter.find("displayOnTop" == true, sortedBy: sort, limitedTo: 25)
+        let counters = try! GroupCounter.find(["displayOnTop": true], sortedBy: sort, limitedTo: 25)
         
         var message = "<b>Classifica Gruppi:</b>\n\n"
         
