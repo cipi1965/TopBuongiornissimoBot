@@ -69,7 +69,7 @@ let main = Commander.Group {
     })
     
     $0.command("sendbuongiorno", {
-        let groups = try Group.find()
+        let groups = try Group.find("disableMessages" == false)
 
         for group in groups {
             bot.sendMessageSync(Int64(group.chatId), "Buongiorno ☕️")
@@ -77,7 +77,7 @@ let main = Commander.Group {
     })
     
     $0.command("sendreport", {
-        let groups = try Group.find()
+        let groups = try Group.find("disableMessages" == false)
         
         for group in groups {
             let dailyCounter = try DailyGroupCounter.findOrCreate(group: group, day: Date())
