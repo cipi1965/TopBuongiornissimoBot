@@ -22,7 +22,7 @@ class DisableReportsCommandHandler: Handler {
             var validUser = false
             
             for chatMember in chatAdmins {
-                if chatMember.user.id == context.fromId && chatMember.can_change_info ?? false {
+                if chatMember.user.id == context.fromId && (chatMember.can_change_info ?? false || chatMember.status_string == "creator") {
                     validUser = true
                 }
             }
