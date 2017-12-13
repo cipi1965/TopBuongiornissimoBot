@@ -15,6 +15,20 @@ class DisableReportsCommandHandler: Handler {
             let groupId = message.chat.id
             let group = try! Group.findOrCreate(name: message.chat.title!, chatId: Int(groupId))
             
+            let chatMembersResult = context.bot.getChatAdministratorsSync(chat_id: context.chatId!)
+            
+            guard let chatAdmins = chatMembersResult else { return false }
+            
+            var validUser = false
+            
+            for chatMember in chatAdmins {
+                if chatMember.user.id == context.fromId && chatMember.can_change_info ?? false {
+                    validUser = true
+                }
+            }
+            
+            guard validUser else { return false }
+            
             if !group.disableMessages {
                 group.disableMessages = true
                 try! group.update(fields: ["disableMessages"])
