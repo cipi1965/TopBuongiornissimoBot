@@ -15,7 +15,7 @@ class DisableReportsCommandHandler: Handler {
             let groupId = message.chat.id
             let group = try! Group.findOrCreate(name: message.chat.title!, chatId: Int(groupId))
             
-            if group.disableMessages {
+            if !group.disableMessages {
                 group.disableMessages = false
                 try! group.update(fields: ["disableMessages"])
                 context.respondAsync("Il bot non invierà più messaggi automatici 😢")
