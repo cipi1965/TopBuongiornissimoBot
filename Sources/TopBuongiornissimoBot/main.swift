@@ -38,6 +38,8 @@ let main = Commander.Group {
         router["start"] = StartCommandHandler.run
         router["classifica"] = UsersRankingCommandHandler.run
         router["gruppi"] = GroupsRankingCommandHandler.run
+        router["toggleclassifica"] = DisableMessagesCommandHandler.run
+        router["togglemessaggi"] = DisableReportsCommandHandler.run
         router[.text] = TextHandler.run
         router.partialMatch = { context in
             return true

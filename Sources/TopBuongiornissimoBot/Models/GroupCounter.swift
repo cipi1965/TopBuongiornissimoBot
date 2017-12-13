@@ -13,10 +13,12 @@ final class GroupCounter: Model {
     
     var group: Reference<Group>
     var count: Int
+    var displayOnTop: Bool
     
     init(group: Reference<Group>, count: Int) {
         self.group = group
         self.count = count
+        self.displayOnTop = true
     }
     
     class func findOrCreate(group: Group) throws -> GroupCounter {

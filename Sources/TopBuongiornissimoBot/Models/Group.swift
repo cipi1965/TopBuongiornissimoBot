@@ -14,13 +14,11 @@ final class Group: Model {
     var name: String
     var chatId: Int
     var disableMessages: Bool
-    var displayOnTop: Bool
     
     init(name: String, chatId: Int) {
         self.name = name
         self.chatId = chatId
         self.disableMessages = false
-        self.displayOnTop = true
     }
     
     class func findOrCreate(name: String, chatId: Int) throws -> Group {
