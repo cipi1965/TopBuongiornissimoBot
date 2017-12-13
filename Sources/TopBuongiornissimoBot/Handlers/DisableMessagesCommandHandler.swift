@@ -18,11 +18,12 @@ class DisableMessagesCommandHandler: Handler {
             
             if groupCounter.displayOnTop {
                 groupCounter.displayOnTop = false
-                try! groupCounter.save()
+                try! groupCounter.update(fields: ["displayOnTop"])
+                
                 context.respondAsync("Il gruppo verrà da ora nascosto dalla classifica globale")
             } else {
                 groupCounter.displayOnTop = true
-                try! groupCounter.save()
+                try! groupCounter.update(fields: ["displayOnTop"])
                 context.respondAsync("Il gruppo verrà da ora mostrato dalla classifica globale")
             }
             

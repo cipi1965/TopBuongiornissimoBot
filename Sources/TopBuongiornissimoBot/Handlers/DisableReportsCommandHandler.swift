@@ -17,11 +17,11 @@ class DisableReportsCommandHandler: Handler {
             
             if group.disableMessages {
                 group.disableMessages = false
-                try! group.save()
+                try! group.update(fields: ["disableMessages"])
                 context.respondAsync("Il bot non invierà più messaggi automatici 😢")
             } else {
                 group.disableMessages = true
-                try! group.save()
+                try! group.update(fields: ["disableMessages"])
                 context.respondAsync("Il bot incomincerà nuovamente a mandare i messaggi automatici! 😚 ")
             }
             
