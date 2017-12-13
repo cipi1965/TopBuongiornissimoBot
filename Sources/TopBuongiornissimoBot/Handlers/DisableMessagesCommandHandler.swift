@@ -17,6 +17,8 @@ class DisableMessagesCommandHandler: Handler {
             let groupCounter = try! GroupCounter.findOrCreate(group: group)
             
             let chatMembersResult = context.bot.getChatAdministratorsSync(chat_id: context.chatId!)
+            print(chatMembersResult)
+            print(context.fromId)
             
             guard let chatAdmins = chatMembersResult else { return false }
             
