@@ -1,39 +1,34 @@
 // swift-tools-version:4.0
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
 import PackageDescription
 
 let package = Package(
     name: "TopBuongiornissimoBot",
     products: [
-        // Products define the executables and libraries produced by a package, and make them visible to other packages.
-        .executable(name: "TopBuongiornissimoBot", targets: ["TopBuongiornissimoBot"]),
+        .library(name: "TopBuongiornissimoBot", targets: ["App"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
-        .package(url: "https://github.com/cipi1965/telegram-bot-swift.git", from: "0.17.2"),
-        .package(url: "https://github.com/OpenKitten/Meow.git", from: "1.0.0"),
-        .package(url: "https://github.com/kylef/Commander.git", from: "0.8.0"),
-        .package(url: "https://github.com/SwiftOnTheServer/SwiftDotEnv.git", .upToNextMajor(from: "1.1.0")),
-        .package(url: "https://github.com/vapor/vapor.git", .upToNextMajor(from: "2.1.0")),
-        .package(url: "https://github.com/IBM-Swift/swift-html-entities.git", .upToNextMajor(from: "3.0.0")),
+        // 💧 A server-side Swift web framework.
+        .package(url: "https://github.com/vapor/vapor.git", from: "3.0.0"),
+
+        // 🔵 Swift ORM (queries, models, relations, etc) built on SQLite 3.
+        .package(url: "https://github.com/vapor/fluent-postgresql.git", from: "1.0.0"),
+
+        .package(url: "https://github.com/rapierorg/telegram-bot-swift.git", from: "1.2.0"),
+        .package(url: "https://github.com/rapierorg/telegram-bot-swift-vapor-provider.git", from: "0.2.0"),
+        .package(url: "https://github.com/IBM-Swift/swift-html-entities.git", from: "3.0.0"),
+        .package(url: "https://github.com/MihaelIsaev/VaporCron.git", from:"1.0.0")
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
-        .target(
-            name: "TopBuongiornissimoBot",
-            dependencies: [
-                "TelegramBotSDK",
-                "Meow",
-                "Commander",
-                "SwiftDotEnv",
-                "Vapor",
-                "HTMLEntities",
-            ]),
-        .testTarget(
-            name: "TopBuongiornissimoBotTests",
-            dependencies: ["TopBuongiornissimoBot"]),
+        .target(name: "App", dependencies: [
+            "FluentPostgreSQL",
+            "Vapor",
+            "TelegramBotSDK",
+            "TelegramBotSDKVaporProvider",
+            "HTMLEntities",
+            "VaporCron"
+        ]),
+        .target(name: "Run", dependencies: ["App"]),
+        .testTarget(name: "AppTests", dependencies: ["App"])
     ]
 )
+
